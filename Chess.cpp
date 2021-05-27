@@ -8,15 +8,15 @@ Chess::Chess(int n) {
 	for (int i = 0; i < size; i++)
 		for (int j = 0; j < size; j++)
 			chessBoard[i][j] = 0;
-	// Ñîçäà¸ì äîñêó è çàïîëíÿåì å¸ íóëÿìè
+	// Ð¡Ð¾Ð·Ð´Ð°Ñ‘Ð¼ Ð´Ð¾ÑÐºÑƒ Ð¸ Ð·Ð°Ð¿Ð¾Ð»Ð½ÑÐµÐ¼ ÐµÑ‘ Ð½ÑƒÐ»ÑÐ¼Ð¸
 }
 
 Chess::Chess(int n, int friendsCount, Pos* friends, int enemiesCount, Pos* enemies) : Chess(n) {
-	// Ñîçäàëè äîñêó è çàïîëíèëè å¸ íóëÿìè
-	// Ðàññòàâëÿåì äðóçåé (1)
+	// Ð¡Ð¾Ð·Ð´Ð°Ð»Ð¸ Ð´Ð¾ÑÐºÑƒ Ð¸ Ð·Ð°Ð¿Ð¾Ð»Ð½Ð¸Ð»Ð¸ ÐµÑ‘ Ð½ÑƒÐ»ÑÐ¼Ð¸
+	// Ð Ð°ÑÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ Ð´Ñ€ÑƒÐ·ÐµÐ¹ (1)
 	for (int i = 0; i < friendsCount; i++)
 		chessBoard[friends[i].y][friends[i].x] = 1;
-	// Ðàññòàâëÿåì âðàãîâ (-1)
+	// Ð Ð°ÑÑÑ‚Ð°Ð²Ð»ÑÐµÐ¼ Ð²Ñ€Ð°Ð³Ð¾Ð² (-1)
 	for (int i = 0; i < enemiesCount; i++)
 		chessBoard[enemies[i].y][enemies[i].x] = -1;
 }
@@ -28,7 +28,7 @@ Chess::~Chess() {
 }
 
 void Chess::backtracking(Pos& now, Pos& finish, int& way, int& minWay, string& lastMotion, int**& chessBoard) {
-	// Åñëè íà ôèíèøå
+	// Ð•ÑÐ»Ð¸ Ð½Ð° Ñ„Ð¸Ð½Ð¸ÑˆÐµ
 	cout << "POSITION: " << now.x << " " << now.y << endl;
 	cout << "WAY: " << way << endl;
 	this->print();
@@ -38,28 +38,28 @@ void Chess::backtracking(Pos& now, Pos& finish, int& way, int& minWay, string& l
 		if (way < minWay)
 			minWay = way;
 	}
-	else {// Äâèæåíèå ââåðõ
-		if (now.y != 0) { //Åñëè ââåðõó íå êîíåö ïîëÿ
-			if (chessBoard[now.y - 1][now.x] != 1) {// Åñëè ââåðõó íå ñîþçíèê
-				int temp = chessBoard[now.y][now.x]; // Ñîõðàíèì èñõîäíîå çíà÷åíèå ìàòðèöû â ïîçèöèè
-				chessBoard[now.y][now.x] = 1; // Ïîìåòèì, ÷òî ìû çäåñü áûëè
-				now.y -= 1; // Õîä ââåðõ
+	else {// Ð”Ð²Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð²Ð²ÐµÑ€Ñ…
+		if (now.y != 0) { //Ð•ÑÐ»Ð¸ Ð²Ð²ÐµÑ€Ñ…Ñƒ Ð½Ðµ ÐºÐ¾Ð½ÐµÑ† Ð¿Ð¾Ð»Ñ
+			if (chessBoard[now.y - 1][now.x] != 1) {// Ð•ÑÐ»Ð¸ Ð²Ð²ÐµÑ€Ñ…Ñƒ Ð½Ðµ ÑÐ¾ÑŽÐ·Ð½Ð¸Ðº
+				int temp = chessBoard[now.y][now.x]; // Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ð¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†Ñ‹ Ð² Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ð¸
+				chessBoard[now.y][now.x] = 1; // ÐŸÐ¾Ð¼ÐµÑ‚Ð¸Ð¼, Ñ‡Ñ‚Ð¾ Ð¼Ñ‹ Ð·Ð´ÐµÑÑŒ Ð±Ñ‹Ð»Ð¸
+				now.y -= 1; // Ð¥Ð¾Ð´ Ð²Ð²ÐµÑ€Ñ…
 				string tlast = lastMotion;
-				if (chessBoard[now.y][now.x] == -1 || lastMotion != "top" || lastMotion == "first") { // Åñëè ñâåðõó ïðîòèâíèê ÈËÈ ïîñëåäíèé õîä áûë íå ââåðõ ÈËÈ ýòî ïåðâûé õîä
+				if (chessBoard[now.y][now.x] == -1 || lastMotion != "top" || lastMotion == "first") { // Ð•ÑÐ»Ð¸ ÑÐ²ÐµÑ€Ñ…Ñƒ Ð¿Ñ€Ð¾Ñ‚Ð¸Ð²Ð½Ð¸Ðº Ð˜Ð›Ð˜ Ð¿Ð¾ÑÐ»ÐµÐ´Ð½Ð¸Ð¹ Ñ…Ð¾Ð´ Ð±Ñ‹Ð» Ð½Ðµ Ð²Ð²ÐµÑ€Ñ… Ð˜Ð›Ð˜ ÑÑ‚Ð¾ Ð¿ÐµÑ€Ð²Ñ‹Ð¹ Ñ…Ð¾Ð´
 					lastMotion = "top";
 					way++;
-					backtracking(now, finish, way, minWay, lastMotion, chessBoard); // Èòàê, âñå óñëîâèÿ âûøå, óêàçûâàþò, ÷òî ôèãóðà õîäèò â ýòîì íàïðàâëåíèè ÍÅ ïîâòîðíî, ñëåäîâàòåëüíî øàã çàñ÷èòûâàåòñÿ
+					backtracking(now, finish, way, minWay, lastMotion, chessBoard); // Ð˜Ñ‚Ð°Ðº, Ð²ÑÐµ ÑƒÑÐ»Ð¾Ð²Ð¸Ñ Ð²Ñ‹ÑˆÐµ, ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°ÑŽÑ‚, Ñ‡Ñ‚Ð¾ Ñ„Ð¸Ð³ÑƒÑ€Ð° Ñ…Ð¾Ð´Ð¸Ñ‚ Ð² ÑÑ‚Ð¾Ð¼ Ð½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ ÐÐ• Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾, ÑÐ»ÐµÐ´Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾ ÑˆÐ°Ð³ Ð·Ð°ÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÑ‚ÑÑ
 					way--;
 				}
-				else { // Èíà÷å ôèãóðà íà ïðîøëîì øàãå óæå õîäèëà ââåðõ è òàê êàê ëàäüÿ ìîæåò èäòè â îäíîì íàïðàâëåíèè ñêîëüêî óãîäíî çà îæèí õîä, õîä ìû íå ïðèáàâëÿåì
+				else { // Ð˜Ð½Ð°Ñ‡Ðµ Ñ„Ð¸Ð³ÑƒÑ€Ð° Ð½Ð° Ð¿Ñ€Ð¾ÑˆÐ»Ð¾Ð¼ ÑˆÐ°Ð³Ðµ ÑƒÐ¶Ðµ Ñ…Ð¾Ð´Ð¸Ð»Ð° Ð²Ð²ÐµÑ€Ñ… Ð¸ Ñ‚Ð°Ðº ÐºÐ°Ðº Ð»Ð°Ð´ÑŒÑ Ð¼Ð¾Ð¶ÐµÑ‚ Ð¸Ð´Ñ‚Ð¸ Ð² Ð¾Ð´Ð½Ð¾Ð¼ Ð½Ð°Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¸Ð¸ ÑÐºÐ¾Ð»ÑŒÐºÐ¾ ÑƒÐ³Ð¾Ð´Ð½Ð¾ Ð·Ð° Ð¾Ð¶Ð¸Ð½ Ñ…Ð¾Ð´, Ñ…Ð¾Ð´ Ð¼Ñ‹ Ð½Ðµ Ð¿Ñ€Ð¸Ð±Ð°Ð²Ð»ÑÐµÐ¼
 					lastMotion = "top";
 					backtracking(now, finish, way, minWay, lastMotion, chessBoard);
 				}
 				lastMotion = tlast;
-				now.y += 1; // Âîçâðàùàåì èñõîäíîå çíà÷åíèå
-				chessBoard[now.y][now.x] = temp; // Âîçâðàùàåì èñõîäíîå çíà÷åíèå
+				now.y += 1; // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
+				chessBoard[now.y][now.x] = temp; // Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð¸ÑÑ…Ð¾Ð´Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ
 			}
-		} // Äâèæåíèå âïðàâî
+		} // Ð”Ð²Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð²Ð¿Ñ€Ð°Ð²Ð¾
 		if (now.x != size - 1) {
 			if (chessBoard[now.y][now.x + 1] != 1) {
 				int temp = chessBoard[now.y][now.x];
@@ -80,7 +80,7 @@ void Chess::backtracking(Pos& now, Pos& finish, int& way, int& minWay, string& l
 				now.x -= 1;
 				chessBoard[now.y][now.x] = temp;
 			}
-		} // Äâèæåíèå âíèç
+		} // Ð”Ð²Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð²Ð½Ð¸Ð·
 		if (now.y != size - 1) {
 			if (chessBoard[now.y + 1][now.x] != 1) {
 				int temp = chessBoard[now.y][now.x];
@@ -101,7 +101,7 @@ void Chess::backtracking(Pos& now, Pos& finish, int& way, int& minWay, string& l
 				now.y -= 1;
 				chessBoard[now.y][now.x] = temp;
 			}
-		} // Äâèæåíèå âëåâî
+		} // Ð”Ð²Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð²Ð»ÐµÐ²Ð¾
 		if (now.x != 0) {
 			if (chessBoard[now.y][now.x - 1] != 1) {
 				int temp = chessBoard[now.y][now.x];
